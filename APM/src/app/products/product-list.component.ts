@@ -9,6 +9,7 @@ export class ProductListComponent {
     pageTitle: string = 'Product List';
     imageWidth: number = 50;
     imageMargin: number = 2;
+    showImage: boolean = false;
     products: any[] = [
         {
             'productId': 1,
@@ -32,4 +33,8 @@ export class ProductListComponent {
             'imageUrl': 'https://2ecffd01e1ab3e9383f0-07db7b9624bbdf022e3b5395236d5cf8.ssl.cf4.rackcdn.com/Product-800x800/4398f5f4-08a3-4025-8241-c6289a9cd9c1.jpg'
         }
     ];
+
+    toggleImage(): void {
+        this.showImage = !this.showImage;
+    }
 }
