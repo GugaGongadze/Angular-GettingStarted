@@ -12,7 +12,17 @@ export class ProductListComponent implements OnInit {
     imageWidth: number = 50;
     imageMargin: number = 2;
     showImage: boolean = false;
-    listFilter: string = 'cart';
+
+    _listFilter: string;
+    get listFilter(): string {
+        return this._listFilter;
+    }
+    set listFilter(value: string) {
+        this._listFilter = value;
+        this.filteredProducts = this.listFilter ? this.performFilter(this.listFilter) : this.products;
+    }
+
+    filteredProducts: IProduct[];
     products: IProduct[] = [
         {
             'productId': 1,
@@ -36,6 +46,17 @@ export class ProductListComponent implements OnInit {
             'imageUrl': 'https://2ecffd01e1ab3e9383f0-07db7b9624bbdf022e3b5395236d5cf8.ssl.cf4.rackcdn.com/Product-800x800/4398f5f4-08a3-4025-8241-c6289a9cd9c1.jpg'
         }
     ];
+
+    constructor() {
+        this.filteredProducts = this.products;
+        this.listFilter = 'cart';
+    }
+
+    performFilter(filterBy: string): IProduct[] {
+        filterBy = filterBy.toLocaleLowerCase();
+        return this.products.filter((product: IProduct) =>
+            product.productName.toLocaleLowerCase().indexOf(filterBy) !== -1);
+    }
 
     toggleImage(): void {
         this.showImage = !this.showImage;
